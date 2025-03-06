@@ -3,6 +3,8 @@
   hosts: localhost
   gather_facts: false
   vars:
+    subnetwork_self_link: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/ansible-bjj"
+
 
   tasks:
     - name: create a static ip address
@@ -14,7 +16,7 @@
         address_type: INTERNAL
         address: "10.100.10.50"
         network: poc-ansible-bjj
-        subnetwork: ansible-bjj
+        subnetwork: "{{ subnetwork_self_link }}"
       register: address
 
     - name: Print Reserved IP Address
