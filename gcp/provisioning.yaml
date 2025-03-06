@@ -12,7 +12,7 @@
     zone: "asia-southeast2-a"
     source_image: "projects/rhel-cloud/global/images/rhel-8-v20250212"
     subnet_cidr: "10.100.10.0/24"
-    disk_size: 10
+    disk_size: 50
     machine_type: "f1-micro"
 
   tasks:
