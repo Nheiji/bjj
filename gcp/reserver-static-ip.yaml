@@ -6,14 +6,6 @@
     subnet: projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/bjj
     network: poc-ansible-bjj
   tasks:
-    - name: Define subnetwork variables
-      set_fact:
-        subnetwork_config:
-          name: bjj
-          region: asia-southeast2
-          ip_cidr_range: 10.100.50.0/24
-          network: poc-ansible-bjj
-
     - name: create a static ip address
       google.cloud.gcp_compute_address:
         name: mystaticip
@@ -21,11 +13,11 @@
         project: poc-ansible-bjj
         state: present
         address_type: INTERNAL
-        address: "10.100.50.50"
+        address: "10.100.10.50"
         network:
           selfLink: projects/poc-ansible-bjj/global/networks/poc-ansible-bjj
         subnetwork:
-          selfLink: projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/bjj
+          selfLink: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/ansible-bjj"
       register: address
 
     - name: Print Reserved IP Address
