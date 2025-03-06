@@ -23,7 +23,8 @@
         address_type: INTERNAL
         address: "10.100.50.50"
         network: "{{ network }}"
-        subnetwork: "{{ subnet | from_json }}"
+        subnetwork:
+          selfLink: bjj
       register: address
 
     - name: Print Reserved IP Address
