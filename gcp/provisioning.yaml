@@ -34,6 +34,7 @@
         state: present
         address_type: "INTERNAL"
         address: "10.100.10.50"
+        prefix_length: "10.100.10.0/24"
         subnetwork: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/ansible-bjj"
       register: address
 
