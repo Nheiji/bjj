@@ -1,0 +1,61 @@
+---
+- name: Create instance in GCP
+  hosts: localhost
+  gather_facts: false
+  vars:
+    project: "poc-ansible-bjj"
+    network_name: "poc-ansible-bjj"
+    subnet_name: "ansible-bjj"
+    ip_name: "test-ansible-ip"
+    machine_name: "test-ansible"
+    region: "asia-southeast2"
+    zone: "asia-southeast2-a"
+    source_image: "projects/poc-ansible-bjj/global/images/family/rhel-8"
+    subnet_cidr: "10.100.10.0/24"
+    disk_size: 10
+    machine_type: "f1-micro"
+
+  tasks:
+    - name: Create a disk
+      google.cloud.gcp_compute_disk:
+        name: "test-disk"
+        size_gb: "{{ disk_size }}"
+        source_image: "{{ source_image }}"
+        zone: "{{ zone }}"
+        project: "{{ project }}"
+        state: present
+      register: disk 
+
+    - name: create a address
+      google.cloud.gcp_compute_address:
+        name: test-address
+        region: "{{ region }}"
+        project: "{{ project }}"
+        state: present
+        address_type: "INTERNAL"
+        address: "10.100.10.50"
+        subnetwork: "ansible-bjj"
+      register: address
+
+    - name: Create an Instance 
+      google.cloud.gcp_compute_instance:
+        project: "{{ project }}"
+        state: present
+        name: "{{ machine_name }}"
+        machine_type: "{{ machine_type }}"
+        zone: "{{ zone }}"
+        disks:
+          - auto_delete: true
+            boot: true
+            source: "{{ disk }}"
+        network_interfaces:
+          - network: "{{ network }}"
+            subnetwork: "{{ subnet }}"
+            access_configs:
+              - name: External NAT
+                type: ONE_TO_ONE_NAT
+                nat_ip: "{{ address }}"
+
+
+
+
