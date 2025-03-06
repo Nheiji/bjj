@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    subnetwork_self_link: "regions/asia-southeast2/subnetworks/ansible-bjj"
+    subnetwork_self_link: "subnetworks/bjj"
 
 
   tasks:
