@@ -14,9 +14,9 @@
         project: poc-ansible-bjj
         state: present
         address_type: INTERNAL
-        address: "10.100.10.50"
+        address: "10.100.50.50"
         network: poc-ansible-bjj
-        subnetwork: 'bjj'
+        subnetwork: "'bjj'"
       register: address
 
     - name: Print Reserved IP Address
