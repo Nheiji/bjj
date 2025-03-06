@@ -22,7 +22,8 @@
         state: present
         address_type: INTERNAL
         address: "10.100.50.50"
-        network: "{{ network }}"
+        network:
+          selfLink: poc-ansible-bjj
         subnetwork:
           selfLink: bjj
       register: address
