@@ -23,6 +23,7 @@
         state: present
         address_type: "INTERNAL"
         address: "10.100.10.50"
+        subnetwork: projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/ansible-bjj
       register: address
 
     - name: Create an Instance 
