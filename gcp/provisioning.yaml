@@ -10,7 +10,7 @@
     machine_name: "test-ansible"
     region: "asia-southeast2"
     zone: "asia-southeast2-a"
-    source_image: "projects/poc-ansible-bjj/global/images/family/rhel-8"
+    source_image: "projects/rhel-cloud/global/images/rhel-8-v20250212"
     subnet_cidr: "10.100.10.0/24"
     disk_size: 10
     machine_type: "f1-micro"
