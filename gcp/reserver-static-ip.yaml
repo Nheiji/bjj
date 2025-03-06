@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    subnet: bjj
+    subnet: projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/bjj
     network: poc-ansible-bjj
   tasks:
     - name: Define subnetwork variables
