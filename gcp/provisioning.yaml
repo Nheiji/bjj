@@ -3,56 +3,43 @@
   hosts: localhost
   gather_facts: false
   vars:
-    project: "poc-ansible-bjj"
-    network_name: "poc-ansible-bjj"
-    subnet_name: "ansible-bjj"
-    ip_name: "test-ansible-ip"
-    machine_name: "test-ansible"
-    region: "asia-southeast2"
-    zone: "asia-southeast2-a"
-    source_image: "projects/rhel-cloud/global/images/rhel-8-v20250212"
-    subnet_cidr: "10.100.10.0/24"
-    disk_size: 50
-    machine_type: "f1-micro"
 
   tasks:
     - name: Create a disk
       google.cloud.gcp_compute_disk:
         name: "test-disk"
-        size_gb: "{{ disk_size }}"
-        source_image: "{{ source_image }}"
-        zone: "{{ zone }}"
-        project: "{{ project }}"
+        size_gb: 50
+        source_image: "projects/rhel-cloud/global/images/rhel-8-v20250212"
+        zone: "asia-southeast2-a"
+        project: "poc-ansible-bjj"
         state: present
       register: disk 
 
-    - name: create a address
+    - name: create a static ip address
       google.cloud.gcp_compute_address:
-        name: test-address
-        region: "{{ region }}"
-        project: "{{ project }}"
+        name: mystaticip
+        region: "asia-southeast2"
+        project: "poc-ansible-bjj"
         state: present
         address_type: "INTERNAL"
         address: "10.100.10.50"
         prefix_length: "10.100.10.0/24"
-        subnetwork: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/ansible-bjj"
       register: address
 
     - name: Create an Instance 
       google.cloud.gcp_compute_instance:
         project: "{{ project }}"
         state: present
-        name: "{{ machine_name }}"
-        machine_type: "{{ machine_type }}"
-        zone: "{{ zone }}"
+        name: test-ansible
+        machine_type: e2-standard-4
+        zone: "asia-southeast2-a"
         disks:
           - auto_delete: true
             boot: true
             source: "{{ disk }}"
         network_interfaces:
-          - network: "{{ address }}"
-            networkIP: "10.100.10.50"
-            subnetwork: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/ansible-bjj"
+          - networkIP: "10.100.10.50"
+            subnetwork: ansible-bjj
             access_configs:
               - name: External NAT
                 type: ONE_TO_ONE_NAT
