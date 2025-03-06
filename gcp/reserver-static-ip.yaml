@@ -16,7 +16,7 @@
         address_type: INTERNAL
         address: "10.100.10.50"
         network: poc-ansible-bjj
-        subnetwork: "{{ subnetwork_self_link }}"
+        subnetwork: "bjj"
       register: address
 
     - name: Print Reserved IP Address
