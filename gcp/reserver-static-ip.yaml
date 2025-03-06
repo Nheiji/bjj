@@ -7,24 +7,15 @@
 
 
   tasks:
-    - name: Create subnetwork
-      google.cloud.gcp_compute_subnetwork:
-        name: my-subnetwork
-        region: asia-southeast2
-        network: 'poc-ansible-bjj'
-        ip_cidr_range: 10.100.70.0/24
-        state: present
-      register: subnetwork
-
     - name: create a static ip address
       google.cloud.gcp_compute_address:
         name: mystaticip
-        region: 'asia-southeast2'
-        project: 'poc-ansible-bjj'
+        region: asia-southeast2
+        project: poc-ansible-bjj
         state: present
         address_type: INTERNAL
         address: "10.100.10.50"
-        network: 'poc-ansible-bjj'
+        network: poc-ansible-bjj
         subnetwork: 'bjj'
       register: address
 
