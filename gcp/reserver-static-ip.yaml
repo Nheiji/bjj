@@ -1,0 +1,22 @@
+---
+- name: Create static ip
+  hosts: localhost
+  gather_facts: false
+  vars:
+
+  tasks:
+    - name: create a static ip address
+      google.cloud.gcp_compute_address:
+        name: mystaticip
+        region: "asia-southeast2"
+        project: "poc-ansible-bjj"
+        state: present
+        address_type: INTERNAL
+        address: "10.100.10.50"
+        network: poc-ansible-bjj
+        subnetwork: ansible-bjj
+      register: address
+
+    - name: Print Reserved IP Address
+      debug:
+        var: address
