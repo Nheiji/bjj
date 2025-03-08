@@ -15,7 +15,7 @@
         address_type: INTERNAL
         address: "10.100.10.50"
         auth_kind: serviceaccount
-        service_account_file: "/tmp/poc-ansible-bjj-d2fbdf60ef03.json"
+        service_account_file: "/root/git/bjj/gcp/poc-ansible-bjj-d2fbdf60ef03.json"
         network:
           selfLink: projects/poc-ansible-bjj/global/networks/poc-ansible-bjj
         subnetwork:
