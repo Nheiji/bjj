@@ -6,18 +6,17 @@
   tasks:
     - name: create a static ip address
       google.cloud.gcp_compute_address:
-        name: "testip"        #define name
+        name: "{{ name-ip-address }}"        #define name
         region: asia-southeast2
         project: poc-ansible-bjj
         state: present
-        address_type: INTERNAL
-        address: "10.100.10.50"            #fill ip address sample 10.100.10.50
+        address_type: "{{ address-type }}"     #define INTERNAL or EXTERNAL
+        address: "{{ ip-address }]"            #fill ip address sample 10.100.10.50
 #        network:
 #          selfLink: "projects/poc-ansible-bjj/global/networks/poc-ansible-bjj"
-        network_tier: "STANDARD"
-        prefix_length: "10.100.10.0/24"
+        prefix_length: "{{ ip-address-range }}"      #prefix sesuai zone
         subnetwork:
-          selfLink: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/ansible-bjj"
+          selfLink: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/{{ subnetwork }}"  #define subnetwork
       register: address
 
     - name: Print Reserved IP Address
