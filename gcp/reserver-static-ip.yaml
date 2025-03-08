@@ -6,12 +6,12 @@
   tasks:
     - name: create a static ip address
       google.cloud.gcp_compute_address:
-        name: test
+        name: "'{{ name-ip-address }}'"
         region: asia-southeast2
         project: poc-ansible-bjj
         state: present
         address_type: "{{ address-type }}"
-        address: "{{ ipaddress }}"
+        address: "'{{ ipaddress }}'"
 #        network:
 #          selfLink: "projects/poc-ansible-bjj/global/networks/poc-ansible-bjj"
         subnetwork:
