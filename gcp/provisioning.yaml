@@ -34,5 +34,5 @@
             access_configs:
               - name: External NAT
                 type: ONE_TO_ONE_NAT
-                nat_ip:
-                  address: "10.100.10.50"
+#                nat_ip:
+#                  address: "10.100.10.50"
