@@ -6,7 +6,7 @@
   tasks:
     - name: create a static ip address
       google.cloud.gcp_compute_address:
-        name: "{{ name-ip-address }}"
+        name: test
         region: asia-southeast2
         project: poc-ansible-bjj
         state: present
