@@ -15,8 +15,7 @@
         state: present
         address_type: INTERNAL
         address: "10.100.10.50"
-        network:
-          selfLink: projects/poc-ansible-bjj/global/networks/poc-ansible-bjj
+        network: poc-ansible-bjj
         subnetwork:
           selfLink: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/ansible-bjj"
       register: address
