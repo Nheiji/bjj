@@ -16,8 +16,8 @@
 #          selfLink: "projects/poc-ansible-bjj/global/networks/poc-ansible-bjj"
         subnetwork:
           selfLink: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/{{ subnetwork }}"  #define subnetwork
-      register: address-static
+      register: address_static
 
     - name: Print Reserved IP Address
       debug:
-        var: address-static
+        var: address_static
