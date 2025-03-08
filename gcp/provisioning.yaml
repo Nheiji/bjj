@@ -17,7 +17,7 @@
 
     - name: Create an Instance 
       google.cloud.gcp_compute_instance:
-        project: "{{ project }}"
+        project: "poc-ansible-bjj"
         state: present
         name: test-ansible
         machine_type: e2-standard-4
@@ -35,8 +35,4 @@
             access_configs:
               - name: External NAT
                 type: ONE_TO_ONE_NAT
-                nat_ip: "{{ address }}"
-
-
-
-
+                nat_ip: "10.100.10.50"
