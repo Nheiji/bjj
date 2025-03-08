@@ -26,9 +26,6 @@
           - auto_delete: true
             boot: true
             source: "{{ disk }}"
-        metadata:
-          - key: ssh-keys-mii
-            value: user:ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBMWWliHh06xJiE3wiLVaRiVSGhudMFjmnB3eNyh0teWuThM4nZrNU2t3VSp7J5wYdSJcmRk5qcAgj1w1SGf3o2k= ecdsa-key-20250306
         network_interfaces:
           - networkIP: "10.100.10.50"
             subnetwork: ansible-bjj
