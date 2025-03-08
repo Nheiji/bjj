@@ -3,21 +3,19 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  vars:
-    subnet: projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/bjj
-    network: poc-ansible-bjj
   tasks:
     - name: create a static ip address
       google.cloud.gcp_compute_address:
-        name: mystaticip
+        name: "testip"        #define name
         region: asia-southeast2
         project: poc-ansible-bjj
         state: present
         address_type: INTERNAL
-        address: "10.100.10.50"
+        address: "10.100.10.50"            #fill ip address sample 10.100.10.50
 #        network:
 #          selfLink: "projects/poc-ansible-bjj/global/networks/poc-ansible-bjj"
-        network_tier: “STANDARD”
+        network_tier: "STANDARD"
+        prefix_length: "10.100.10.0/24"
         subnetwork:
           selfLink: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/ansible-bjj"
       register: address
