@@ -28,7 +28,7 @@
             boot: true
             source: "{{ disk }}"
         network_interfaces:
-          - networkIP: "10.100.10.50"
+          - network_ip: "10.100.10.50"
             subnetwork:
               selfLink: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/ansible-bjj"
             access_configs:
