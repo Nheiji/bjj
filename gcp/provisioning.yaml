@@ -8,10 +8,10 @@
   tasks:
     - name: Create a disk
       google.cloud.gcp_compute_disk:
-        name: "test-disk"
-        size_gb: 50
+        name: "{{ name_compute_engine }}"
+        size_gb: "{{ size_disk_gb }}"
         source_image: "projects/rhel-cloud/global/images/rhel-8-v20250212"
-        zone: "asia-southeast2-a"
+        zone: "{{ region_zone }}"
         project: "poc-ansible-bjj"
         state: present
       register: disk 
@@ -20,17 +20,17 @@
       google.cloud.gcp_compute_instance:
         project: "poc-ansible-bjj"
         state: present
-        name: test-ansible
+        name: "{{ name_compute_engine }}"
         machine_type: e2-standard-4
-        zone: "asia-southeast2-a"
+        zone: "{{ region_zone }}" #asia-southeast2-a dan asia-southeast2-b
         disks:
           - auto_delete: true
             boot: true
             source: "{{ disk }}"
         network_interfaces:
-          - network_ip: "10.100.10.50"
+          - network_ip: "{{ ipaddress }}"
             subnetwork:
-              selfLink: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/ansible-bjj"
+              selfLink: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/{{ subnetwork }}"
             access_configs:
               - name: External NAT
                 type: ONE_TO_ONE_NAT
