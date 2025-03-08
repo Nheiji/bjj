@@ -28,7 +28,8 @@
             source: "{{ disk }}"
         network_interfaces:
           - networkIP: "10.100.10.50"
-            subnetwork: ansible-bjj
+            subnetwork:
+              selfLink: "projects/poc-ansible-bjj/regions/asia-southeast2/subnetworks/ansible-bjj"
             access_configs:
               - name: External NAT
                 type: ONE_TO_ONE_NAT
