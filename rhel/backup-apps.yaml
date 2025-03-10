@@ -1,6 +1,6 @@
 ---
 - name: Backup folder and send to another server
-  hosts: "10.100.10.70"
+  hosts: 10.100.10.70
   gather_facts: false
   connection: local
   tasks:    
