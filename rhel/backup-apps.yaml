@@ -18,15 +18,23 @@
 #        dest: /tmp/backup-upload.tar.gz
 #      remote_src: true
     - name: copy to temp folder
+      hosts: 10.100.10.7
+      fetch:
+        src: /tmp/backup-upload.tar.gz
+        dest: /tmp/backup-upload.tar.gz
+      register: fetch_result
+    - name: copy to temp folder
+      hosts: 10.100.30.2
       fetch:
         src: /tmp/backup-upload.tar.gz
         dest: /tmp/backup-upload.tar.gz
         flat: yes
-      delegate_to: 10.100.10.4
-    - name: ls
-      command: ls -lh /tmp/
-      delegate_to: localhost
-      register: output
-    - debug:
-        msg: "{{ output }}"
-    
+
+#    - name: ls
+#      command: ls -lh /tmp/
+#      delegate_to: localhost
+#      register: output
+#    - debug:
+#        msg: "{{ output }}"
+#    - name:
+       
