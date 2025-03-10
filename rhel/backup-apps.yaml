@@ -4,8 +4,8 @@
   gather_facts: true
   become: true
   vars:
-    ipsource: 10.100.10.7
-    nama_backup: backupdata
+    ipsource: "10.100.10.7"
+    nama_backup: "backupdata"
   tasks:    
     - name: Create a tar.gz archive of folder upload .
       community.general.archive:
@@ -17,8 +17,8 @@
     - debug: 
         msg: "backup sukses"
 
-    - name: check file backup
-      command: "ls -lh /tmp/{{ nama_backup }}.tar.gz"
-      register: output_ls
-    - debug:
-        msg: "{{ output_ls }}"
+#    - name: check file backup
+#      command: "ls -lh /tmp/{{ nama_backup }}.tar.gz"
+#      register: output_ls
+#    - debug:
+#        msg: "{{ output_ls }}"
