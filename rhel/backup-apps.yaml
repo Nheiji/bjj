@@ -4,12 +4,19 @@
   gather_facts: false
   connection: local
   tasks:    
-    - name: Archive a folder
-      shell: "tar -czvf /tmp/my_archive.tar.gz -C / var/www/html/upload"
-      args:
-        creates: /tmp/my_archive.tar.gz
-      become: true
-      delegate_to: 10.100.10.70
+    - name: check directory listing
+      shell:
+         cmd: ls -lh /var/www/html/
+      register: output
+    - debug:
+        msg: "{{ output }}"
+
+#    - name: Archive a folder
+#      shell: "tar -czvf /tmp/my_archive.tar.gz -C / var/www/html/upload"
+#      args:
+#        creates: /tmp/my_archive.tar.gz
+#      become: true
+#      delegate_to: 10.100.10.70
 
 #    - name: Create a tar.gz backup of the folder
 #      ansible.builtin.command:
@@ -18,12 +25,12 @@
 
 #    - name: Create a tar.gz archive of folder upload in 10.100.10.70.
 #      community.general.archive:
-#        path: /var/www/html/upload/
+#        path: /var/www/html/upload
 #        dest: /tmp/backup-upload.tar.gz
 #        format: gz
 #        force_archive: true
-    - name: get file backup to 10.100.10.70
-      fetch:
-        src: /tmp/backup-upload.tar.gz
-        dest: /var/www/html/backup-upload.tar.gz
-        flat: yes
+#    - name: get file backup to 10.100.10.70
+#      fetch:
+#        src: /tmp/backup-upload.tar.gz
+#        dest: /var/www/html/backup-upload.tar.gz
+#        flat: yes
