@@ -1,0 +1,17 @@
+---
+- name: Create instance in GCP
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Update A record IP address
+      google.cloud.gcp_dns_resource_record_set:
+        project: "poc-ansible-bjj"
+        zone: miilabcoid
+        name: demo.miilab.co.id
+        type: "A"
+        target:
+          - 10.100.30.2
+        state: present
+        overwrite: true
