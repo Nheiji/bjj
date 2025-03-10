@@ -5,5 +5,7 @@
   connection: local
   tasks:    
     - name: Create a tar.gz backup of the folder
-      shell:
-        cmd: tar -zcvf /var/www/html/backup-upload.tar.gz /var/www/html/upload
+      ansible.builtin.archive:
+        path: /var/www/html/upload
+        dest: /var/www/html/backup-upload.tar.gz
+        format: gz
