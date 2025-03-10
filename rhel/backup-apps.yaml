@@ -7,3 +7,4 @@
     - name: Create a tar.gz backup of the folder
       shell:
         cmd: tar -zcvf /var/www/html/backup-upload.tar.gz /var/www/html/upload
+      delegate_to: 10.100.10.70
