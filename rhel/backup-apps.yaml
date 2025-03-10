@@ -9,7 +9,7 @@
   tasks:    
     - name: backup
       delegate_to: 10.100.10.7
-      command: ls -lh /var/www/html/
+      command: hostname
 #      command: tar -czvf /tmp/backup.tar.gz /var/www/html/upload
 
 #    - name: Create a tar.gz archive of folder upload .
