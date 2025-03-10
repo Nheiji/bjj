@@ -10,4 +10,10 @@
         dest: /tmp/backup-upload.tar.gz
         format: gz
         force_archive: true
-      delegate_to: "10.100.30.2"
+      delegate_to: "10.100.10.70"
+
+    - name: copy to target
+      copy:
+        src: /tmp/backup-upload.tar.gz
+        dest: /tmp/backup-upload.tar.gz
+      remote_src: true
