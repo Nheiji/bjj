@@ -12,7 +12,8 @@
           name: miilabcoid
           dnsName: miilab.co.id
         name: demo.miilab.co.id
-        type: "A"
+        type: A
+        ttl: 300
         target:
           - 10.100.30.2
         state: present
