@@ -1,0 +1,16 @@
+---
+- hosts: all
+  gather_facts: false  # Disable fact gathering for this playbook
+  tasks:
+    - name: Fetch file from Server A
+      hosts: 10.100.10.70
+      fetch:
+        src: /tmp/backup-upload.tar.gz
+        dest: /tmp/
+      register: fetch_result
+
+    - name: Copy file to Server B
+      hosts: 10.100.30.2
+      copy:
+        src: /tmp/{{ fetch_result.files[0].path }}
+        dest: /tmp/
