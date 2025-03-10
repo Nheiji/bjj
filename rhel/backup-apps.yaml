@@ -10,7 +10,7 @@
     - name: Create a tar.gz archive of folder upload .
       community.general.archive:
         path: /var/www/html/upload
-        dest: "/tmp/databackup.tar.gz"
+        dest: /tmp/databackup.tar.gz
         format: gz
         force_archive: true
       delegate_to: "{{ ipsource }}"
