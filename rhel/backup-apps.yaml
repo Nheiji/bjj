@@ -1,0 +1,15 @@
+---
+- name: Backup folder and send to another server
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Create a tar.gz backup of the folder
+      ansible.builtin.command:
+        cmd: tar -czvf /tmp/backup.tar.gz /var/www/html/upload
+      delegate_to: "10.100.10.70" 
+    - name: Copy the backup to another server
+      ansible.builtin.copy:
+        src: /tmp/backup.tar.gz
+        dest: /var/www/html/
+      delegate_to: "10.100.30.2"
