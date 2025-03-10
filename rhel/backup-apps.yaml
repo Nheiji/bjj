@@ -5,7 +5,7 @@
   connection: local
   tasks:    
     - name: Archive a folder
-      shell: "tar -czvf /tmp/my_archive.tar.gz /var/www/html/upload"
+      shell: "tar -czvf /tmp/my_archive.tar.gz -C / var/www/html/upload"
       args:
         creates: /tmp/my_archive.tar.gz
       become: true
