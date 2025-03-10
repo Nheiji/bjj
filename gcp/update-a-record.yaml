@@ -8,7 +8,9 @@
     - name: Update A record IP address
       google.cloud.gcp_dns_resource_record_set:
         project: "poc-ansible-bjj"
-        managed_zone: miilabcoid
+        managed_zone:
+        - name: miilabcoid
+        - dnsName: miilab.co.id
         name: demo.miilab.co.id
         type: "A"
         target:
