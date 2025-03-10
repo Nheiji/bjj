@@ -16,4 +16,4 @@
       copy:
         src: /tmp/backup-upload.tar.gz
         dest: /tmp/backup-upload.tar.gz
-      remote_src: true
+#      remote_src: true
