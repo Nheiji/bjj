@@ -12,8 +12,13 @@
         force_archive: true
       delegate_to: "10.100.10.70"
 
-    - name: copy to target
-      copy:
+#    - name: copy to target
+#      copy:
+#        src: /tmp/backup-upload.tar.gz
+#        dest: /tmp/backup-upload.tar.gz
+#      remote_src: true
+    - name: copy to temp folder
+      fetch:
         src: /tmp/backup-upload.tar.gz
         dest: /tmp/backup-upload.tar.gz
-#      remote_src: true
+        flat: yes
