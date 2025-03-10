@@ -18,7 +18,7 @@
         msg: "backup sukses"
 
     - name: check file backup
-      command: "ls -lh /var/www/html/{{ nama_backup }}.tar.gz"
+      command: "ls -lh /tmp/{{ nama_backup }}.tar.gz"
       register: output_ls
     - debug:
         msg: "{{ output_ls }}"
