@@ -18,7 +18,8 @@
         msg: "backup sukses"
 
     - name: check file backup
-      command: "ls -lh /tmp/{{ nama_backup }}.tar.gz"
+      delegate_to: 10.100.10.70
+      command: "ls -lh /tmp/databackup.tar.gz"
       register: output_ls
     - debug:
         msg: "{{ output_ls }}"
