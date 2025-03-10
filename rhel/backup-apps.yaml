@@ -3,12 +3,22 @@
   hosts: all
   gather_facts: true
   become: true
+  vars:
+    ipsource: 10.100.10.7
+    nama_backup: backupdata
   tasks:    
     - name: Create a tar.gz archive of folder upload .
       community.general.archive:
         path: /var/www/html/upload
-        dest: /tmp/backup-upload.tar.gz
+        dest: "/tmp/{{ nama_backup}}.tar.gz"
         format: gz
         force_archive: true
-      delegate_to: "10.100.10.70"
+      delegate_to: "{{ ipsource }}"
+    - debug: 
+        msg: "backup sukses"
 
+    - name: check file backup
+      command: "ls -lh /var/www/html/{{ nama_backup }}.tar.gz"
+      register: output_ls
+    - debug:
+        msg: "{{ output_ls }}"
