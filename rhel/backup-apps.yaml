@@ -1,6 +1,6 @@
 ---
-- name: Backup folder and send to another server
-  hosts: all
+- name: Backup folder apps
+  hosts: localhost
   gather_facts: false
   connection: local
   tasks:    
