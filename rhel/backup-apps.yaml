@@ -22,9 +22,11 @@
         src: /tmp/backup-upload.tar.gz
         dest: /tmp/backup-upload.tar.gz
         flat: yes
+      delegate_to: 10.100.10.4
     - name: ls
       command: ls -lh /tmp/
       delegate_to: localhost
       register: output
     - debug:
         msg: "{{ output }}"
+    
