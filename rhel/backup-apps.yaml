@@ -1,6 +1,6 @@
 ---
 - name: Backup folder apps
-  hosts: localhost
+  hosts: 10.100.10.70
   gather_facts: false
   connection: local
   tasks:    
@@ -11,4 +11,3 @@
         dest: /var/www/html/backup-upload.tar.gz
         format: gz
         force_archive: true
-      delegate_to: 10.100.10.70
