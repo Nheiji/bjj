@@ -7,23 +7,23 @@
     ipsource: "10.100.10.7"
     nama_backup: "backupdata"
   tasks:    
-    - name: backup
-      delegate_to: 10.100.10.7
-      command: ip a
-      register: output
-    - debug:
-        msg: "{{ output }}"
+#    - name: backup
+#      delegate_to: 10.100.10.70
+#      command: ip a
+#      register: output
+#    - debug:
+#        msg: "{{ output }}"
 #      command: tar -czvf /tmp/backup.tar.gz /var/www/html/upload
 
-#    - name: Create a tar.gz archive of folder upload .
-#      delegate_to: 10.100.10.7
-#      community.general.archive:
-#        path: /var/www/html/upload
-#        dest: /tmp/databackup.tar.gz
-#        format: gz
-#        force_archive: true
-#    - debug: 
-#        msg: "backup sukses"
+    - name: Create a tar.gz archive of folder upload .
+      delegate_to: 10.100.10.70
+      community.general.archive:
+        path: /var/www/html/upload
+        dest: /tmp/databackup.tar.gz
+        format: gz
+        force_archive: true
+    - debug: 
+        msg: "backup sukses"
 
 #    - name: check file backup
 #      command: "ls -lh /tmp/{{ nama_backup }}.tar.gz"
