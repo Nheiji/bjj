@@ -8,12 +8,12 @@
     nama_backup: "backupdata"
   tasks:    
     - name: Create a tar.gz archive of folder upload .
+      delegate_to: 10.100.10.7
       community.general.archive:
         path: /var/www/html/upload
         dest: /tmp/databackup.tar.gz
         format: gz
         force_archive: true
-#      delegate_to: 10.100.10.7
     - debug: 
         msg: "backup sukses"
 
