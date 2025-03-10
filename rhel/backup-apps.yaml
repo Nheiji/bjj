@@ -23,11 +23,11 @@
         dest: /tmp/backup-upload.tar.gz
       register: fetch_result
     - name: copy to temp folder
-      fetch:
+      copy:
         src: /tmp/backup-upload.tar.gz
         dest: /tmp/backup-upload.tar.gz
-        flat: yes
       delegate_to: 10.100.30.2
+      remote_src: yes
 #    - name: ls
 #      command: ls -lh /tmp/
 #      delegate_to: localhost
