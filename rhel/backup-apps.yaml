@@ -1,8 +1,8 @@
 ---
 - name: Backup folder apps
   hosts: all
-  gather_facts: false
-  connection: local
+  gather_facts: true
+  become: true
   tasks:    
     - name: check directory listing
       shell:
