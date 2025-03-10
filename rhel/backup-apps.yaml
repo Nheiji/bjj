@@ -22,3 +22,9 @@
         src: /tmp/backup-upload.tar.gz
         dest: /tmp/backup-upload.tar.gz
         flat: yes
+    - name: ls
+      command: ls -lh /tmp/
+      delegate_to: localhost
+      register: output
+    - debug:
+        msg: "{{ output }}"
