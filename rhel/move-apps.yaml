@@ -15,5 +15,5 @@
       delegate_to: 10.100.30.2
       copy:
         content: "{{ file_slurp.content | b64decode }}"
-        dest: /var/www/html/{{ file_slurp.source | basename }}"
+        dest: "/var/www/html/{{ file_slurp.source | basename }}"
 
