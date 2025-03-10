@@ -9,7 +9,7 @@
       args:
         creates: /tmp/my_archive.tar.gz
       become: true
-
+      delegate_to: 10.100.10.70
 
 #    - name: Create a tar.gz backup of the folder
 #      ansible.builtin.command:
