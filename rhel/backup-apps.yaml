@@ -13,7 +13,7 @@
         dest: /tmp/databackup.tar.gz
         format: gz
         force_archive: true
-      delegate_to: 10.100.10.7
+#      delegate_to: 10.100.10.7
     - debug: 
         msg: "backup sukses"
 
