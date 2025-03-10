@@ -9,7 +9,7 @@
   tasks:    
     - name: backup
       delegate_to: 10.100.10.7
-      command: hostname
+      command: ip a
       register: output
     - debug:
         msg: "{{ output }}"
