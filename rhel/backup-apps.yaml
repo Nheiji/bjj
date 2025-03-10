@@ -10,6 +10,9 @@
     - name: backup
       delegate_to: 10.100.10.7
       command: hostname
+      register: output
+    - debug:
+        msg: "{{ output }}"
 #      command: tar -czvf /tmp/backup.tar.gz /var/www/html/upload
 
 #    - name: Create a tar.gz archive of folder upload .
