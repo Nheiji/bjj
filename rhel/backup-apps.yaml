@@ -1,10 +1,14 @@
 ---
 - name: Backup folder and send to another server
-  hosts: 10.100.10.70
+  hosts: all
   gather_facts: false
   connection: local
   tasks:    
-    - name: Create a tar.gz backup of the folder
-      shell:
-        cmd: tar -zcvf /var/www/html/backup-upload.tar.gz /var/www/html/upload
+
+    - name: Create a tar.gz archive of folder upload in 10.100.10.70.
+      community.general.archive:
+        path: /var/www/html/upload
+        dest: /var/www/html/backup-upload.tar.gz
+        format: gz
+        force_archive: true
       delegate_to: 10.100.10.70
