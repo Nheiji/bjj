@@ -8,7 +8,9 @@
     - name: verify python3-pip installed
       delegate_to: 10.100.10.70
       dnf:
-        name: python3-pip
+        name:
+          - python3-pip
+          - python3-dnf
         state: present
 #    - name: wait for VM to be ready
 #      wait_for: timeout=30
