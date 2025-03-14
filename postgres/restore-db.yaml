@@ -26,7 +26,7 @@
 
 
     - name: Restore Database to a postgres SQL Server
-      delegate_to: 10.100.20.5
+      delegate_to: localhost
       community.postgresql.postgresql_db:
         login_user: "{{ login_user }}"
         login_password: "{{ login_password }}"
