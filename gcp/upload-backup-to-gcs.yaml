@@ -36,7 +36,7 @@
         bucket: backupbjj
         project: "poc-ansible-bjj"
         src: "/tmp/{{ file_slurp.source | basename }}"
-        dest: "~/databackup.tar.gz"
+        dest: "databackup.tar.gz"
     - debug:
         msg: "backup sukses"
 
