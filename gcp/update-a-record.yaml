@@ -1,11 +1,11 @@
 ---
-- name: Create instance in GCP
+- name: Modified A Record on Cloud DNS
   hosts: localhost
   connection: local
   gather_facts: false
 
   tasks:
-    - name: Update A record IP address
+    - name: Update A record IP address on domain demo.miilab.co.id
       google.cloud.gcp_dns_resource_record_set:
         project: "poc-ansible-bjj"
         managed_zone:
@@ -15,6 +15,6 @@
         type: A
         ttl: 300
         target:
-          - "{{ ip_pub_destination }}"
+          - "{{ ip_destination }}"
         state: present
 #        overwrite: true
