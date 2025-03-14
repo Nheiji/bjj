@@ -51,7 +51,7 @@
         bucket: backupbjj
         project: "poc-ansible-bjj"
         src: "/tmp/{{ file_slurp_db.source | basename }}"
-        dest: /database/database.tar
+        dest: backupbjj/database-backup/database.tar
     - debug:
         msg: "Backup database sukses"
 
