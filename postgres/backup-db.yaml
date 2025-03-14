@@ -1,0 +1,42 @@
+---
+- name: Backup and Upload to Google Cloud Storage
+  hosts: all
+  gather_facts: false
+
+  tasks:
+#    - name: verify google-cloud-storage Python library installed
+#      delegate_to: localhost
+#      pip:
+#        name: google-cloud-storage
+#        state: present
+
+    - name: Dump an existing database to a file
+      delegate_to: 10.100.10.70
+      community.postgresql.postgresql_db:
+        name: uploads
+        state: dump
+        target: /tmp/data.tar
+
+#    - name: read file from Server Source
+#      delegate_to: "{{ ip_source }}"
+#      slurp:
+#        src: /tmp/databackup.tar.gz
+#      register: file_slurp
+
+#    - name: write file to Server B
+#      delegate_to: localhost
+#      copy:
+#        content: "{{ file_slurp.content | b64decode }}"
+#        dest: "/tmp/{{ file_slurp.source | basename }}"
+
+#    - name: upload backup data to bucket
+#      delegate_to: localhost
+#      google.cloud.gcp_storage_object:
+#        action: upload
+#        bucket: backupbjj
+#        project: "poc-ansible-bjj"
+#        src: "/tmp/{{ file_slurp.source | basename }}"
+#        dest: "databackup.tar.gz"
+#    - debug:
+#        msg: "backup sukses"
+
