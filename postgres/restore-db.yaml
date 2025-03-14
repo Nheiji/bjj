@@ -26,11 +26,11 @@
 
     - name: Create a new database if it doesn't exist
       community.postgresql.postgresql_db:
-        name: uploads
-        state: present
         login_user: "{{ login_user }}"
         login_password: "{{ login_password }}"
         login_host: 10.100.20.5
+        name: uploads
+        state: present
 
 
     - name: Restore Database to a postgres SQL Server
