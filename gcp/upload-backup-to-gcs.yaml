@@ -1,0 +1,17 @@
+---
+- name: Upload backup files to Google Cloud Storage
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: "Update backup data to bucket {{ nama_bucket }}"
+      delegate_to: 10.100.10.70
+      google.cloud.gcp_storage_object:
+        bucket: backupbjj
+        project: "poc-ansible-bjj"
+        src: /tmp/databackup.tar.gz
+        dest: "~/databackup.tar.gz"
+    - debug:
+        msg: "backup sukses"
+
