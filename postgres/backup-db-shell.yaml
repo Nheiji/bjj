@@ -1,0 +1,45 @@
+---
+- name: Backup and Upload to Google Cloud Storage
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - include_vars:
+        file: postgres-account.yaml 
+
+    - name: Dump an existing database to a file
+#      delegate_to: 10.100.10.70
+      shell:
+        cmd: "PGPASSWORD={{ login_password }} pg_dump -U {{ login_user }} -h {{ ip_db_target }} -c uploads > /tmp/backup-db-uploads.tar"
+    - debug:
+        msg: "Backup Files Database Ready"
+
+    - name: Check file backup database
+#      delegate_to: 10.100.10.70
+      command: "ls -lh /tmp/backup-db-uploads.tar"
+      register: output_ls
+    - debug:
+        msg: "{{ output_ls }}"
+
+    - name: verify google-cloud-storage Python library installed
+      delegate_to: localhost
+      pip:
+        name: google-cloud-storage
+        state: present
+
+    - name: Read file from Server Source
+#      delegate_to: 10.100.10.70
+      slurp:
+        src: "/tmp/backup-db-uploads.tar"
+      register: file_slurp_db
+
+    - name: upload backup data from temp server to bucket
+ #     delegate_to: localhost
+      google.cloud.gcp_storage_object:
+        action: upload
+        bucket: backupbjj
+        project: "poc-ansible-bjj"
+        src: "/tmp/backup-db-uploads.tar"
+        dest: database-backup/database.tar
+    - debug:
+        msg: "Backup database to GCS sukses"
