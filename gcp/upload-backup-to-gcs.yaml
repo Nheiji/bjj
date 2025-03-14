@@ -1,15 +1,16 @@
 ---
 - name: Upload backup files to Google Cloud Storage
   hosts: localhost
-  connection: local
+#  connection: local
   gather_facts: false
 
   tasks:
     - name: verify python3-pip installed
       delegate_to: 10.100.10.70
       dnf:
-        name: python3-dnf
-#          - python3-pip
+        name:
+          - python3-dnf
+          - python3-pip
         state: present
 #    - name: wait for VM to be ready
 #      wait_for: timeout=30
