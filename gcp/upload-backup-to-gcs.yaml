@@ -21,12 +21,24 @@
       pip:
         name: google-cloud-storage
         state: present
-    - name: "Update backup data to bucket {{ nama_bucket }}"
-      delegate_to: 10.100.10.70
+
+    - name: read file from Server Source
+      delegate_to: "10.100.10.70"
+      slurp:
+        src: /tmp/backup-upload.tar.gz
+      register: file_slurp
+
+    - name: write file to Server B
+#      delegate_to: "{{ ipdestination }}"
+      copy:
+        content: "{{ file_slurp.content | b64decode }}"
+        dest: "/tmp/{{ file_slurp.source | basename }}"
+
+    - name: "Update backup data to bucket"
       google.cloud.gcp_storage_object:
         bucket: backupbjj
         project: "poc-ansible-bjj"
-        src: /tmp/databackup.tar.gz
+        src: "/tmp/{{ file_slurp.source | basename }}"
         dest: "~/databackup.tar.gz"
     - debug:
         msg: "backup sukses"
