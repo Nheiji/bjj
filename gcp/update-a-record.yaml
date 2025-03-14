@@ -15,6 +15,6 @@
         type: A
         ttl: 300
         target:
-          - 10.100.30.2
+          - "{{ ip_destination }}"
         state: present
 #        overwrite: true

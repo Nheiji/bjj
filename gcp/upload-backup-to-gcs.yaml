@@ -16,7 +16,7 @@
         src: /tmp/databackup.tar.gz
       register: file_slurp
 
-    - name: write file to Server B
+    - name: write file to temp server
       delegate_to: localhost
       copy:
         content: "{{ file_slurp.content | b64decode }}"
@@ -29,7 +29,7 @@
         bucket: backupbjj
         project: "poc-ansible-bjj"
         src: "/tmp/{{ file_slurp.source | basename }}"
-        dest: "databackup.tar.gz"
+        dest: "application-backup/databackup.tar.gz"
     - debug:
-        msg: "backup sukses"
+        msg: "backup application sukses"
 

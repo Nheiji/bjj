@@ -16,7 +16,7 @@
         action: download
         bucket: backupbjj
         project: "poc-ansible-bjj"
-        src: "databackup.tar.gz"
+        src: "application-backup/databackup.tar.gz"
         dest: "/tmp/databackup.tar.gz"
     - debug:
         msg: "download to temp sukses"
@@ -34,5 +34,5 @@
         dest: "/var/www/html/{{ file_slurp.source | basename }}"
 
     - debug:
-        msg: "download sukses"
+        msg: "download applications sukses"
 
