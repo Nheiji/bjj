@@ -5,18 +5,16 @@
   become: true
   tasks:    
     - name: Create a tar.gz archive of folder upload .
-      delegate_to: "{{ ip_source }}"
-      community.general.archive:
-        path: /var/www/html/upload
-        dest: /tmp/databackup.tar.gz
-        format: gz
-        force_archive: true
+      delegate_to: "{{ ip_destination }}"
+      unarchive:
+        path: /var/www/html/
+        dest: /tmp/backup-app.tar.gz
     - debug: 
-        msg: "backup sukses"
+        msg: "extract sukses"
 
-    - name: check file backup
-      delegate_to: "{{ ip_source }}"
-      command: "ls -lh /tmp/databackup.tar.gz"
-      register: output_ls
+    - name: check file after extract
+      delegate_to: "{{ ip_destination }}"
+      command: "ls -lh /var/www/html/upload"
+      register: output_ls_restoredata
     - debug:
-        msg: "{{ output_ls }}"
+        msg: "{{ output_ls_restoredata }}"

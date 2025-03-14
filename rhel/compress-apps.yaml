@@ -8,7 +8,7 @@
       delegate_to: "{{ ip_source }}"
       community.general.archive:
         path: /var/www/html/upload
-        dest: /tmp/backup-app.tar.gz
+        dest: /tmp/databackup.tar.gz
         format: gz
         force_archive: true
     - debug: 
@@ -16,7 +16,7 @@
 
     - name: check file backup
       delegate_to: "{{ ip_source }}"
-      command: "ls -lh /backup-app.tar.gz"
-      register: output_ls_backup_data
+      command: "ls -lh /tmp/databackup.tar.gz"
+      register: output_ls_backupdata
     - debug:
-        msg: "{{ output_ls_backup_data }}"
+        msg: "{{ output_ls_backupdata }}"
