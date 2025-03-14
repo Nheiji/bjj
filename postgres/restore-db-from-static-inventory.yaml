@@ -77,9 +77,9 @@
 
 
     - name: restore from shell psql
-      delegate_to: 10.100.10.70
+      delegate_to: localhost
       shell:
-        cmd: "PGPASSWORD={{ login_password }} pg_restore -U {{ login_user }} -d uploads < /root/{{ file_slurp.source | basename }}"
+        cmd: "PGPASSWORD={{ login_password }} pg_restore -U {{ login_user }} -d uploads < /tmp/database.tar
     - debug:
         msg: "Restore Database Ready"
 
