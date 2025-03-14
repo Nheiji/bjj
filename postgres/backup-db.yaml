@@ -2,14 +2,15 @@
 - name: Backup and Upload to Google Cloud Storage
   hosts: all
   gather_facts: false
-  include_vars:
-    - file: postgres-account.yaml
+
   tasks:
 #    - name: verify google-cloud-storage Python library installed
 #      delegate_to: localhost
 #      pip:
 #        name: google-cloud-storage
 #        state: present
+    - include_vars:
+        file: postgres-account.yaml 
 
     - name: Dump an existing database to a file
       delegate_to: 10.100.10.70
