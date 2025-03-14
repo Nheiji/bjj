@@ -1,6 +1,6 @@
 ---
 - name: Upload backup files to Google Cloud Storage
-  hosts: localhost
+  hosts: all
   gather_facts: false
 
   tasks:
