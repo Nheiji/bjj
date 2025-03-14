@@ -34,21 +34,21 @@
       register: file_slurp_db
 
     - name: write file to temp server
-      delegate_to: 10.100.10.70
+      delegate_to: "{{ ip_source }}"
       copy:
         content: "{{ file_slurp_db.content | b64decode }}"
         dest: "/tmp/{{ file_slurp_db.source | basename }}"
 
     - name: Check file backup database
-      delegate_to: 10.100.10.70
+      delegate_to: "{{ ip_source }}"
       command: "ls -lh /tmp/{{ file_slurp_db.source | basename }}"
       register: output_ls
     - debug:
         msg: "{{ output_ls }}"
 
     - name: restore an existing database to a file
-      delegate_to: 10.100.10.70
+      delegate_to: "{{ ip_source }}"
       shell:
-        cmd: "PGPASSWORD={{ login_password }} psql -U {{ login_user }} -h 10.100.20.5 -d uploads < /tmp/{{ file_slurp_db.source | basename }}"
+        cmd: "PGPASSWORD={{ login_password }} psql -U {{ login_user }} -h {{ ip_destination_db }} -d uploads < /tmp/{{ file_slurp_db.source | basename }}"
     - debug:
         msg: "Restore Files Database Backup Ready"
