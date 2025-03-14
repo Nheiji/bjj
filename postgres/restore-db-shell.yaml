@@ -34,21 +34,22 @@
 #      wait_for:
 #        timeout: 60
 
-#    - name: Read file from Server Source
-#      delegate_to: 10.100.10.70
-#      slurp:
-#        src: "/tmp/backup-db-uploads.tar"
-#      register: file_slurp_db
+    - name: Read file from Server Source
+      slurp:
+        src: "/tmp/backup-db-uploads.tar"
+      register: file_slurp_db
 
-    - name: Get file Database to Jumphost
+    - name: write file to temp server
       delegate_to: 10.100.10.70
       copy:
-        content: "/tmp/backup-db-uploads.tar"
-        dest: "/tmp/backup-db-uploads.tar"
+        content: "{{ file_slurp_db.content | b64decode }}"
+        dest: "/tmp/{{ file_slurp_db.source | basename }}"
+
+
 
     - name: Check file backup database
       delegate_to: 10.100.10.70
-      command: "ls -lh /tmp/backup-db-uploads.tar"
+      command: "ls -lh /tmp/{{ file_slurp_db.source | basename }}"
       register: output_ls
     - debug:
         msg: "{{ output_ls }}"
@@ -56,6 +57,6 @@
     - name: restore an existing database to a file
       delegate_to: 10.100.10.70
       shell:
-        cmd: "PGPASSWORD={{ login_password }} psql -U {{ login_user }} -h 10.100.20.5 -d uploads < /tmp/backup-db-uploads.tar"
+        cmd: "PGPASSWORD={{ login_password }} psql -U {{ login_user }} -h 10.100.20.5 -d uploads < /tmp/{{ file_slurp_db.source | basename }}"
     - debug:
         msg: "Restore Files Database Backup Ready"
