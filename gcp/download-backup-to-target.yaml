@@ -21,7 +21,7 @@
 
     - name: read file from temp Source
       slurp:
-        src: /tmp/databackup.tar.gz
+        src: /tmp/backup-app.tar.gz
       register: file_slurp
 
     - name: write file to Server Target
