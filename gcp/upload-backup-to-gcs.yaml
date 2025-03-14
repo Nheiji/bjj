@@ -10,7 +10,7 @@
         state: present
 
     - name: read file from Server Source
-      delegate_to: "10.100.10.70"
+      delegate_to: "ip_source"
       slurp:
         src: /tmp/databackup.tar.gz
       register: file_slurp
@@ -20,7 +20,7 @@
         content: "{{ file_slurp.content | b64decode }}"
         dest: "/tmp/{{ file_slurp.source | basename }}"
 
-    - name: "Update backup data to bucket"
+    - name: upload backup data to bucket
       google.cloud.gcp_storage_object:
         action: upload
         bucket: backupbjj

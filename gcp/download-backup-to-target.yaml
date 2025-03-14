@@ -1,5 +1,5 @@
 ---
-- name: Upload backup files to Google Cloud Storage
+- name: download backup files to Google Cloud Storage
   hosts: localhost
   gather_facts: false
 
@@ -9,7 +9,7 @@
         name: google-cloud-storage
         state: present
 
-    - name: "download backup data to bucket"
+    - name: "download backup data from bucket"
       google.cloud.gcp_storage_object:
         action: download
         bucket: backupbjj
@@ -20,13 +20,12 @@
         msg: "download to temp sukses"
 
     - name: read file from temp Source
-#      delegate_to: "10.100.10.70"
       slurp:
         src: /tmp/databackup.tar.gz
       register: file_slurp
 
     - name: write file to Server Target
-      delegate_to: "10.100.10.70"
+      delegate_to: "{{ ip_destination }}"
       copy:
         content: "{{ file_slurp.content | b64decode }}"
         dest: "/var/www/html/{{ file_slurp.source | basename }}"
