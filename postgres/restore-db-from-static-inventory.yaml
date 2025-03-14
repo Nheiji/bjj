@@ -63,5 +63,6 @@
 
     - name: restore from shell psql
       delegate_to: localhost
-      command: PGPASSWORD={{ login_password }} pg_restore -U {{ login_user }} -d uploads -v /tmp/database.tar
+      shell:
+        cmd: PGPASSWORD={{ login_password }} pg_restore -U {{ login_user }} -d uploads -v /tmp/database.tar
 
