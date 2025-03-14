@@ -60,26 +60,9 @@
     - debug:
         msg: "download to temp sukses"
 
-    - name: read file from temp Source
-      delegate_to: localhost
-      slurp:
-        src: /tmp/database.tar
-      register: file_slurp
-
-    - name: write file to Server Target
-      delegate_to: 10.100.10.70
-      copy:
-        content: "{{ file_slurp.content | b64decode }}"
-        dest: "/root/{{ file_slurp.source | basename }}"
-
-    - debug:
-        msg: "download applications sukses"
-
 
     - name: restore from shell psql
       delegate_to: localhost
       shell:
         cmd: "PGPASSWORD={{ login_password }} pg_restore -U {{ login_user }} -d uploads < /tmp/database.tar
-    - debug:
-        msg: "Restore Database Ready"
 
