@@ -33,3 +33,10 @@
     - debug:
         msg: "download applications sukses"
 
+    - name: Verify File on {{ ip_destination }}
+      delegate_to: "{{ ip_destination }}"
+      command: "ls -lh /var/www/html/{{ file_slurp.source | basename }}"
+      register: output_ls_file_gz
+    - debug:
+        msg: "{{ output_ls_file_gz }}"
+
