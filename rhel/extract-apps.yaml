@@ -7,8 +7,8 @@
     - name: Create a tar.gz archive of folder upload .
       delegate_to: "{{ ip_destination }}"
       unarchive:
-        path: /var/www/html/
-        dest: /tmp/backup-app.tar.gz
+        src: /tmp/backup-app.tar.gz
+        dest: /var/www/html/
     - debug: 
         msg: "extract sukses"
 
