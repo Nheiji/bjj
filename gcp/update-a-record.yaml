@@ -5,7 +5,7 @@
   gather_facts: false
 
   tasks:
-    - name: Update A record IP address on domain demo.miilab.co.id
+    - name: Update A record IP address on domain demo.miilab.co.id to {{ ip_destination }}
       google.cloud.gcp_dns_resource_record_set:
         project: "poc-ansible-bjj"
         managed_zone:
