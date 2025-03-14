@@ -15,6 +15,6 @@
         type: A
         ttl: 300
         target:
-          - "{{ ip_destination }}"
+          - "{{ ip_pub_destination }}"
         state: present
 #        overwrite: true
