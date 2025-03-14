@@ -10,7 +10,7 @@
     - name: Dump an existing database to a file
 #      delegate_to: 10.100.10.70
       shell:
-        cmd: "PGPASSWORD={{ login_password }} pg_dump -U {{ login_user }} -h {{ ip_db_target }} -c uploads > /tmp/backup-db-uploads.tar"
+        cmd: "PGPASSWORD={{ login_password }} pg_dump -U {{ login_user }} -h 10.100.10.70 -c uploads > /tmp/backup-db-uploads.tar"
     - debug:
         msg: "Backup Files Database Ready"
 
