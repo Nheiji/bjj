@@ -67,7 +67,7 @@
       register: file_slurp
 
     - name: write file to Server Target
-      delegate_to: "{{ ip_destination }}"
+      delegate_to: 10.100.10.70
       copy:
         content: "{{ file_slurp.content | b64decode }}"
         dest: "/root/{{ file_slurp.source | basename }}"
