@@ -4,11 +4,6 @@
   gather_facts: false
 
   tasks:
-#    - name: verify google-cloud-storage Python library installed
-#      delegate_to: localhost
-#      pip:
-#        name: google-cloud-storage
-#        state: present
     - include_vars:
         file: postgres-account.yaml 
 
@@ -20,27 +15,43 @@
         name: uploads
         state: dump
         target: /tmp/database.tar
+    
+    - debug:
+        msg: "Backup Database Ready"
 
-#    - name: read file from Server Source
-#      delegate_to: "{{ ip_source }}"
-#      slurp:
-#        src: /tmp/databackup.tar.gz
-#      register: file_slurp
+    - name: Check file backup database
+      delegate_to: 10.100.10.70
+      command: "ls -lh /tmp/database.tar"
+      register: output_ls
+    - debug:
+        msg: "{{ output_ls }}"
 
-#    - name: write file to Server B
-#      delegate_to: localhost
-#      copy:
-#        content: "{{ file_slurp.content | b64decode }}"
-#        dest: "/tmp/{{ file_slurp.source | basename }}"
+    - name: verify google-cloud-storage Python library installed
+      delegate_to: localhost
+      pip:
+        name: google-cloud-storage
+        state: present
 
-#    - name: upload backup data to bucket
-#      delegate_to: localhost
-#      google.cloud.gcp_storage_object:
-#        action: upload
-#        bucket: backupbjj
-#        project: "poc-ansible-bjj"
-#        src: "/tmp/{{ file_slurp.source | basename }}"
-#        dest: "databackup.tar.gz"
-#    - debug:
-#        msg: "backup sukses"
+    - name: Read file from Server Source
+      delegate_to: 10.100.10.70
+      slurp:
+        src: /tmp/database.tar
+      register: file_slurp_db
+
+    - name: write file to temp server
+      delegate_to: localhost
+      copy:
+        content: "{{ file_slurp_db.content | b64decode }}"
+        dest: "/tmp/{{ file_slurp_db.source | basename }}"
+
+    - name: upload backup data from temp server to bucket
+      delegate_to: localhost
+      google.cloud.gcp_storage_object:
+        action: upload
+        bucket: backupbjj
+        project: "poc-ansible-bjj"
+        src: "/tmp/{{ file_slurp.source | basename }}"
+        dest: /database/database.tar
+    - debug:
+        msg: "Backup database sukses"
 
