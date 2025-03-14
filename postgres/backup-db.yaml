@@ -13,6 +13,8 @@
     - name: Dump an existing database to a file
       delegate_to: 10.100.10.70
       community.postgresql.postgresql_db:
+        login_user: postgres
+        login_password: Qkpfg0TN
         name: uploads
         state: dump
         target: /tmp/data.tar
