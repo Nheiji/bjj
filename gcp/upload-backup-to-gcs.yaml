@@ -10,7 +10,7 @@
         state: present
 
     - name: read file from Server Source
-      delegate_to: "ip_source"
+      delegate_to: "{{ ip_source }}"
       slurp:
         src: /tmp/databackup.tar.gz
       register: file_slurp
