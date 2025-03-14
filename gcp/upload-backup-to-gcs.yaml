@@ -16,11 +16,11 @@
 #      wait_for: timeout=30
 #      delegate_to: localhost
 
-#    - name: verify google-cloud-storage Python library installed
-#      delegate_to: 10.100.10.70
-#      pip:
-#        name: google-cloud-storage
-#        state: present
+    - name: verify google-cloud-storage Python library installed
+      delegate_to: 10.100.10.70
+      pip:
+        name: google-cloud-storage
+        state: present
 #    - name: "Update backup data to bucket {{ nama_bucket }}"
 #      delegate_to: 10.100.10.70
 #      google.cloud.gcp_storage_object:
