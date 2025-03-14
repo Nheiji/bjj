@@ -1,0 +1,21 @@
+---
+- name: Change Connections DB to {{ ip_destination_db }}
+  hosts: all
+  gather_facts: true
+  become: true
+  tasks:    
+    - name: Change parameter target DB host
+      delegate_to: "{{ ip_destination }}"
+      lineinfile:
+        path: /var/www/html/upload/upload.php
+        regexp: '^$host='
+        line: "$host={{ ip_destination_db }};"
+    - debug: 
+        msg: "change target db success"
+
+    - name: verify changes on upload.php
+      delegate_to: "{{ ip_destination }}"
+      command: "cat -lh /var/www/html/upload/upload.php"
+      register: output_uploadphp
+    - debug:
+        msg: "{{ output_uploadphp }}"
