@@ -25,7 +25,7 @@
     - name: read file from Server Source
       delegate_to: "10.100.10.70"
       slurp:
-        src: /tmp/backup-upload.tar.gz
+        src: /tmp/databackup.tar.gz
       register: file_slurp
 
     - name: write file to Server B
