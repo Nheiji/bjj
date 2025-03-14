@@ -22,6 +22,18 @@
     - debug:
         msg: "Download database to temp server sukses"
 
+    - name: Check file backup database on temp server
+#      delegate_to: 10.100.10.70
+      command: "ls -lh /tmp/backup-db-uploads.tar"
+      register: output_ls_temp
+    - debug:
+        msg: "{{ output_ls_temp }}"
+
+
+#    - name: Sleep for 300 seconds and continue with play
+#      wait_for:
+#        timeout: 60
+
 #    - name: Read file from Server Source
 #      delegate_to: 10.100.10.70
 #      slurp:
