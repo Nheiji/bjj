@@ -24,14 +24,14 @@
 #    - debug:
 #        msg: "download file backup database to temp sukses"
 
-    - name: Create a new database if it doesn't exist
+#    - name: Create a new database if it doesn't exist
 #      delegate_to: 10.100.10.70
-      community.postgresql.postgresql_db:
-        login_user: "{{ login_user }}"
-        login_password: "{{ login_password }}"
-        login_host: 10.100.20.5
-        name: uploads
-        state: present
+#      community.postgresql.postgresql_db:
+#        login_user: "{{ login_user }}"
+#        login_password: "{{ login_password }}"
+#        login_host: 10.100.20.5
+#        name: uploads
+#        state: present
 
     - name: Restore Database to a postgres SQL Server
 #      delegate_to: 10.100.10.70
