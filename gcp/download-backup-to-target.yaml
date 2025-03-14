@@ -5,24 +5,21 @@
 
   tasks:
     - name: verify google-cloud-storage Python library installed
-      delegate_to: localhost
       pip:
         name: google-cloud-storage
         state: present
 
     - name: "download backup data from bucket"
-      delegate_to: localhost
       google.cloud.gcp_storage_object:
         action: download
         bucket: backupbjj
         project: "poc-ansible-bjj"
-        src: "application-backup/databackup.tar.gz"
-        dest: "/tmp/databackup.tar.gz"
+        src: "application-backup/backup-app.tar.gz"
+        dest: "/tmp/backup-app.tar.gz"
     - debug:
         msg: "download to temp sukses"
 
     - name: read file from temp Source
-      delegate_to: localhost
       slurp:
         src: /tmp/databackup.tar.gz
       register: file_slurp
