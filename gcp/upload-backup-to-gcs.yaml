@@ -5,6 +5,7 @@
 
   tasks:
     - name: verify google-cloud-storage Python library installed
+      delegate_to: localhost
       pip:
         name: google-cloud-storage
         state: present
@@ -16,11 +17,13 @@
       register: file_slurp
 
     - name: write file to Server B
+      delegate_to: localhost
       copy:
         content: "{{ file_slurp.content | b64decode }}"
         dest: "/tmp/{{ file_slurp.source | basename }}"
 
     - name: upload backup data to bucket
+      delegate_to: localhost
       google.cloud.gcp_storage_object:
         action: upload
         bucket: backupbjj
