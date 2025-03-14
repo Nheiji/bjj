@@ -15,7 +15,7 @@
 
     - name: verify changes on upload.php
       delegate_to: "{{ ip_destination }}"
-      command: "cat -lh /var/www/html/upload/upload.php"
+      command: "cat /var/www/html/upload/upload.php"
       register: output_uploadphp
     - debug:
         msg: "{{ output_uploadphp }}"
