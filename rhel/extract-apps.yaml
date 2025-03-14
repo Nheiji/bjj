@@ -7,7 +7,7 @@
     - name: Create a tar.gz archive of folder upload .
       delegate_to: "{{ ip_destination }}"
       unarchive:
-        src: /tmp/backup-app.tar.gz
+        src: /var/www/html/backup-app.tar.gz
         dest: /var/www/html/
         remote_src: yes
     - debug: 
