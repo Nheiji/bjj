@@ -1,20 +1,10 @@
 ---
 - name: Upload backup files to Google Cloud Storage
   hosts: localhost
-#  connection: local
   gather_facts: false
 
   tasks:
-#    - name: verify python3-pip installed
-#      delegate_to: localhost
-#      dnf:
-#        name:
-#          - python3-dnf
-#          - python3-pip
-#        state: present
-
     - name: verify google-cloud-storage Python library installed
-#      delegate_to: localhost
       pip:
         name: google-cloud-storage
         state: present
@@ -26,13 +16,13 @@
       register: file_slurp
 
     - name: write file to Server B
-#      delegate_to: "{{ ipdestination }}"
       copy:
         content: "{{ file_slurp.content | b64decode }}"
         dest: "/tmp/{{ file_slurp.source | basename }}"
 
     - name: "Update backup data to bucket"
       google.cloud.gcp_storage_object:
+        action: upload
         bucket: backupbjj
         project: "poc-ansible-bjj"
         src: "/tmp/{{ file_slurp.source | basename }}"
