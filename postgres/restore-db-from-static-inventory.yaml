@@ -34,7 +34,7 @@
 #        state: present
 
     - name: Restore Database to a postgres SQL Server
-#      delegate_to: 10.100.10.70
+      delegate_to: 10.100.10.70
       community.postgresql.postgresql_db:
         login_host: 10.100.20.5
         login_user: "{{ login_user }}"
