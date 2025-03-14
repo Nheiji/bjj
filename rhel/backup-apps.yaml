@@ -16,7 +16,7 @@
 
     - name: check file backup
       delegate_to: "{{ ip_source }}"
-      command: "ls -lh /backup-app.tar.gz"
+      command: "ls -lh /tmp/backup-app.tar.gz"
       register: output_ls_backup_data
     - debug:
         msg: "{{ output_ls_backup_data }}"
