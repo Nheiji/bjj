@@ -5,7 +5,16 @@
   gather_facts: false
 
   tasks:
-    - name: verify google cloud storage python
+    - name: verify python3-pip installed
+      delegate_to: 10.100.10.70
+      dnf:
+        name: python3-pip
+        state: present
+#    - name: wait for VM to be ready
+#      wait_for: timeout=30
+#      delegate_to: localhost
+
+    - name: verify google-cloud-storage Python library installed
       delegate_to: 10.100.10.70
       pip:
         name: google-cloud-storage
