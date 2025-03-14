@@ -4,7 +4,7 @@
   gather_facts: true
   become: true
   tasks:    
-    - name: Create a tar.gz archive of folder upload .
+    - name: extract a tar.gz archive of folder upload
       delegate_to: "{{ ip_destination }}"
       unarchive:
         src: /var/www/html/backup-app.tar.gz
