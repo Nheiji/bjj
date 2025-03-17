@@ -4,20 +4,8 @@
   gather_facts: false
 
   tasks:
-
-#    - name: Read file from Server Source
-#      delegate_to: "{{ ip_source }}"
-#      slurp:
-#        src: "/tmp/backup-db-uploads.tar"
-#      register: file_slurp_db
-
-#    - name: write file to temp server
-#      copy:
-#        content: "{{ file_slurp_db.content | b64decode }}"
-#        dest: "/tmp/{{ file_slurp_db.source | basename }}"
-
-    - name: Get checksum of source data
-      delegate_to: 10.100.10.70
+    - name: Get checksum of source data from {{ ip_source }}
+      delegate_to: 10.100.10.7
       stat:
         path : /tmp/backup-app.tar.gz
       register: myfirstfile
@@ -29,10 +17,10 @@
     - debug:
         msg: "{{ checksum_firstfile }}"
 
-    - name: Get checksum of destination data
+    - name: Get checksum of destination data from {{ ip_destination }}
       delegate_to: 10.100.30.2
       stat:
-        path : /var/www/html/backup-app.tar.gz
+        path : /var/www/html/file1.txt
       register: mysecondfile
 
     - name: Current SHA1
