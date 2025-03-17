@@ -20,7 +20,7 @@
     - name: Get cksum of my Second File on {{ ip_destination }}
       delegate_to: "{{ ip_destination }}"
       stat:
-        path : /var/www/html/backup-app.tar.gz
+        path : /var/www/html/file1.txt
       register: mysecondfile
 
     - name: Current SHA1
