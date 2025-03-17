@@ -13,16 +13,22 @@
     - name: Current SHA1
       set_fact:
         mf1sha1: "{{ myfirstfile.stat.checksum }}"
+      register: chksum_source
+    - debug:
+        msg: "{{ chksum_source }}"
 
     - name: Get cksum of my Second File on 10.100.30.2
       delegate_to: 10.100.30.2
       stat:
-        path : /var/www/html/backup-app.tar.gz
+        path : /var/www/html/file1.txt
       register: mysecondfile
 
     - name: Current SHA1
       set_fact:
         mf2sha1: "{{ mysecondfile.stat.checksum }}"
+      register: chksum_destination
+    - debug:
+        msg: "{{ chksum_destination }}"
 
     - name: Compilation Changed
       debug:
