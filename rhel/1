@@ -15,7 +15,6 @@
         mf1sha1: "{{ myfirstfile.stat.checksum }}"
 
     - name: Get cksum of my Second File on 10.100.30.2
-      delegate_to: 10.100.30.2
       stat:
         path : /var/www/html/backup-app.tar.gz
       register: mysecondfile
