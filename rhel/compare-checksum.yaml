@@ -4,8 +4,8 @@
   gather_facts: false
 
   tasks:
-    - name: Get cksum of my First file on 10.100.10.70
-      delegate_to: 10.100.10.70
+    - name: Get cksum of my First file on {{ ip_source }}
+      delegate_to: "{{ ip_source }}"
       stat:
         path : /tmp/backup-app.tar.gz
       register: myfirstfile
@@ -17,8 +17,8 @@
     - debug:
         msg: "{{ chksum_source }}"
 
-    - name: Get cksum of my Second File on 10.100.30.2
-      delegate_to: 10.100.30.2
+    - name: Get cksum of my Second File on {{ ip_destination }}
+      delegate_to: "{{ ip_destination }}"
       stat:
         path : /var/www/html/file1.txt
       register: mysecondfile
