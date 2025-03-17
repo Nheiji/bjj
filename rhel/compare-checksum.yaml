@@ -4,7 +4,7 @@
   gather_facts: false
 
   tasks:
-    - name: Get checksum of source data from {{ ip_source }}
+    - name: Get checksum of source data from 10.100.10.70
       delegate_to: 10.100.10.7
       stat:
         path : /tmp/backup-app.tar.gz
@@ -17,7 +17,7 @@
     - debug:
         msg: "{{ checksum_firstfile }}"
 
-    - name: Get checksum of destination data from {{ ip_destination }}
+    - name: Get checksum of destination data from 10.100.30.2
       delegate_to: 10.100.30.2
       stat:
         path : /var/www/html/file1.txt
