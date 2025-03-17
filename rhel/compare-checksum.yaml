@@ -4,8 +4,8 @@
   gather_facts: false
 
   tasks:
-    - name: Get cksum of my First file on 10.100.10.7
-      delegate_to: 10.100.10.7
+    - name: Get cksum of my First file on 10.100.10.70
+      delegate_to: 10.100.10.70
       stat:
         path : /tmp/backup-app.tar.gz
       register: myfirstfile
