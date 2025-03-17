@@ -1,0 +1,42 @@
+---
+- name: Checksum file on Source and Destinations
+  hosts: all
+  gather_facts: false
+
+  tasks:
+
+#    - name: Read file from Server Source
+#      delegate_to: "{{ ip_source }}"
+#      slurp:
+#        src: "/tmp/backup-db-uploads.tar"
+#      register: file_slurp_db
+
+#    - name: write file to temp server
+#      copy:
+#        content: "{{ file_slurp_db.content | b64decode }}"
+#        dest: "/tmp/{{ file_slurp_db.source | basename }}"
+
+    - name: Get checksum of source data
+      delegate_to: 10.100.10.70
+      stat:
+        path : /tmp/backup-app.tar.gz
+      register: myfirstfile
+
+    - name: Current SHA1
+      set_fact:
+        mf1sha1: "{{ myfirstfile.stat.checksum }}"
+
+    - name: Get checksum of destination data
+      delegate_to: 10.100.30.2
+      stat:
+        path : /var/www/html/backup-app.tar.gz
+      register: mysecondfile
+
+    - name: Current SHA1
+      set_fact:
+        mf2sha1: "{{ mysecondfile.stat.checksum }}"
+
+    - name: Compilation Changed
+      debug:
+        msg: "File Compare"
+      failed_when:  mf2sha1 != mf1sha1
