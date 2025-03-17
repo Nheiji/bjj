@@ -8,8 +8,8 @@
       delegate_to: "{{ ip_destination }}"
       lineinfile:
         path: /var/www/html/upload/db_config.php
-        regexp: '^(\$host\s*=\s*).*;'
-        line: '$host="{{ ip_destination_db }}";'
+        regexp: '^(\$host_change\s*=\s*).*;'
+        line: '$host_change="{{ ip_destination_db }}";'
         backrefs: yes
     - debug: 
         msg: "change target db success"
