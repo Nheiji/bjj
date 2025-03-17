@@ -13,9 +13,9 @@
     - name: Current SHA1
       set_fact:
         mf1sha1: "{{ myfirstfile.stat.checksum }}"
-      register: checksum_firstfile
-    - debug:
-        msg: "{{ checksum_firstfile }}"
+#      register: checksum_firstfile
+#    - debug:
+#        msg: "{{ checksum_firstfile }}"
 
     - name: Get checksum of destination data from 10.100.30.2
       delegate_to: 10.100.30.2
@@ -26,9 +26,9 @@
     - name: Current SHA1
       set_fact:
         mf2sha1: "{{ mysecondfile.stat.checksum }}"
-      register: checksum_secondfile
-    - debug:
-        msg: "{{ checksum_secondfile }}"
+#      register: checksum_secondfile
+#    - debug:
+#        msg: "{{ checksum_secondfile }}"
 
     - name: Compilation Changed
       debug:
