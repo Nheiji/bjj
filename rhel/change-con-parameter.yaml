@@ -5,7 +5,7 @@
   become: true
   tasks:    
     - name: Change parameter target DB host
-      delegate_to: "{{ ip_destination_db }}"
+      delegate_to: "{{ ip_destination }}"
       lineinfile:
         path: /var/www/html/upload/upload.php
         regexp: '^(\$host_change\s*=\s*).*;'
@@ -15,7 +15,7 @@
         msg: "change target db success"
 
     - name: verify changes on upload.php
-      delegate_to: "{{ ip_destination_db }}"
+      delegate_to: "{{ ip_destination }}"
       command: "cat /var/www/html/upload/upload.php"
       register: output_uploadphp
     - debug:
