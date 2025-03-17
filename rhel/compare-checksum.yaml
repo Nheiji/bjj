@@ -27,7 +27,7 @@
         mf1sha1: "{{ myfirstfile.stat.checksum }}"
       register: checksum_firstfile
     - debug:
-        msg: checksum_firstfile
+        msg: "{{ checksum_firstfile }}"
 
     - name: Get checksum of destination data
       delegate_to: 10.100.30.2
@@ -40,7 +40,7 @@
         mf2sha1: "{{ mysecondfile.stat.checksum }}"
       register: checksum_secondfile
     - debug:
-        msg: checksum_secondfile
+        msg: "{{ checksum_secondfile }}"
 
     - name: Compilation Changed
       debug:
