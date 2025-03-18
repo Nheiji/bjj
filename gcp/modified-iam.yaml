@@ -1,0 +1,26 @@
+---
+- name: Modify IAM Role for a GCP User
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Add IAM Role to the User
+      ansible.builtin.command:
+        cmd: >
+          gcloud projects add-iam-policy-binding {{ project_id }}
+          --member="user:{{ user_email }}"
+          --role="roles/{{ role_name }}"
+      register: add_role_result
+
+    - debug:
+        var: add_role_result.stdout
+
+    - name: Remove IAM Role from the User
+      ansible.builtin.command:
+        cmd: >
+          gcloud projects remove-iam-policy-binding {{ project_id }}
+          --member="user:{{ user_email }}"
+          --role="roles/{{ old_role_name }}"
+      register: remove_role_result
+
+    - debug:
+        var: remove_role_result.stdout
