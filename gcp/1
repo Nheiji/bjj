@@ -3,8 +3,8 @@
   hosts: localhost
   gather_facts: no
   vars:
-    project_id: "poc-ansible-bjj"
-    user_email: "fathirandy@gmail.com"
+    project_id: "your-project-id"
+    user_email: "user@example.com"
     roles:
       - "roles/viewer"
       - "roles/editor"
@@ -12,7 +12,6 @@
 
   tasks:
     - name: Get current IAM policy for the project
-      delegate_to: 10.100.10.70
       ansible.builtin.command:
         cmd: >
           gcloud projects get-iam-policy {{ project_id }} --format=json
@@ -23,7 +22,6 @@
         msg: "Retrieved IAM policy: {{ iam_policy.stdout }}"
 
     - name: Remove role only if it matches
-      delegate_to: 10.100.10.70
       ansible.builtin.command:
         cmd: >
           gcloud projects remove-iam-policy-binding {{ project_id }}
