@@ -3,18 +3,29 @@
   hosts: all
   gather_facts: no
   tasks:
-#iam: Owner, Editor, Browser, Viewer 
-    - name: Add IAM Role to the User
-      delegate_to: 10.100.10.70
-      ansible.builtin.command:
-        cmd: >
-          gcloud projects add-iam-policy-binding {{ project_id }}
-          --member="user:{{ user_email }}"
-          --role="roles/{{ role_name }}"
-      register: add_role_result
+    - name: Ensure specific IAM role is bound to the user
+      google.cloud.gcp_iam_policy_binding:
+        project: "{{ project_id }}"
+        role: "roles/{{ role_name }}"
+        members:
+          - "user:{{ user_email }}"
+        state: present
 
-    - debug:
-        var: add_role_result.stdout
+
+
+
+#iam: Owner, Editor, Browser, Viewer 
+#    - name: Add IAM Role to the User
+#      delegate_to: 10.100.10.70
+#      ansible.builtin.command:
+#        cmd: >
+#          gcloud projects add-iam-policy-binding {{ project_id }}
+#          --member="user:{{ user_email }}"
+#          --role="roles/{{ role_name }}"
+#      register: add_role_result
+#
+#    - debug:
+#        var: add_role_result.stdout
 
 #    - name: Remove IAM Role from the User
 #      ansible.builtin.command:
