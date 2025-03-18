@@ -8,10 +8,11 @@
     roles:
       - "roles/viewer"
       - "roles/editor"
-      - "roles/browser"
+#      - "roles/browser"
 
   tasks:
     - name: Get current IAM policy for the project
+      delegate_to: 10.100.10.70
       ansible.builtin.command:
         cmd: >
           gcloud projects get-iam-policy {{ project_id }} --format=json
@@ -22,6 +23,7 @@
         msg: "Retrieved IAM policy: {{ iam_policy.stdout }}"
 
     - name: Remove role if it exists for the user
+      delegate_to: 10.100.10.70
       ansible.builtin.command:
         cmd: >
           gcloud projects remove-iam-policy-binding {{ project_id }}
@@ -34,6 +36,7 @@
       register: remove_results
 
     - name: Display results of role removal
+      delegate_to: 10.100.10.70
       debug:
         msg: "Role {{ item.item }} removal output: {{ item.stdout }}"
       with_items: "{{ remove_results.results }}"
