@@ -1,10 +1,28 @@
 ---
-- name: Modify IAM Role for a GCP User
+- name: Modify basic IAM Role for a GCP User {{ user_email }}
   hosts: all
   gather_facts: no
+  vars:
+    roles:
+      - "roles/viewer"
+      - "roles/editor"
+      - "roles/owner"
+      - "roles/browser"
   tasks:
+    - name: Clean up basic user on {{ user_email }}
+      ansible.builtin.command:
+        cmd: >
+          gcloud projects remove-iam-policy-binding {{ project_id }}
+          --member="user:{{ user_email }}"
+          --role="{{ item }}"
+      with_items: "{{ roles }}"
+      register: remove_results
 
-#iam: Owner, Editor, Browser, Viewer 
+    - name: Display results
+      debug:
+        msg: "Role {{ item.item }} removal output: {{ item.stdout }}"
+      with_items: "{{ remove_results.results }}"
+
     - name: Add IAM Role to the User
       delegate_to: 10.100.10.70
       ansible.builtin.command:
@@ -16,13 +34,3 @@
     - debug:
         var: add_role_result.stdout
 
-#    - name: Remove IAM Role from the User
-#      ansible.builtin.command:
-#        cmd: >
-#          gcloud projects remove-iam-policy-binding {{ project_id }}
-#          --member="user:{{ user_email }}"
-#          --role="roles/{{ old_role_name }}"
-#      register: remove_role_result
-#
-#    - debug:
-#        var: remove_role_result.stdout
