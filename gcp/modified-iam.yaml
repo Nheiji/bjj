@@ -15,13 +15,13 @@
     - debug:
         var: add_role_result.stdout
 
-    - name: Remove IAM Role from the User
-      ansible.builtin.command:
-        cmd: >
-          gcloud projects remove-iam-policy-binding {{ project_id }}
-          --member="user:{{ user_email }}"
-          --role="roles/{{ old_role_name }}"
-      register: remove_role_result
-
-    - debug:
-        var: remove_role_result.stdout
+#    - name: Remove IAM Role from the User
+#      ansible.builtin.command:
+#        cmd: >
+#          gcloud projects remove-iam-policy-binding {{ project_id }}
+#          --member="user:{{ user_email }}"
+#          --role="roles/{{ old_role_name }}"
+#      register: remove_role_result
+#
+#    - debug:
+#        var: remove_role_result.stdout
