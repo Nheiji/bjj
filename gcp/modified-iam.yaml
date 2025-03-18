@@ -10,6 +10,7 @@
       - "roles/browser"
   tasks:
     - name: Get current IAM policy for the project
+      delegate_to: 10.100.10.70
       ansible.builtin.command:
         cmd: >
           gcloud projects get-iam-policy poc-ansible-bjj --format=json
