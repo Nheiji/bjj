@@ -13,7 +13,7 @@
       delegate_to: 10.100.10.70
       ansible.builtin.command:
         cmd: >
-          gcloud projects remove-iam-policy-binding {{ project_id }}
+          gcloud projects remove-iam-policy-binding poc-ansible-bjj
           --member="user:{{ user_email }}"
           --role="{{ item }}"
       with_items: "{{ roles }}"
@@ -28,7 +28,7 @@
       delegate_to: 10.100.10.70
       ansible.builtin.command:
         cmd: >
-          gcloud projects add-iam-policy-binding {{ project_id }}
+          gcloud projects add-iam-policy-binding poc-ansible-bjj
           --member="user:{{ user_email }}"
           --role="roles/{{ role_name }}"
       register: add_role_result
