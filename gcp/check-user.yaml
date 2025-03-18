@@ -6,7 +6,7 @@
     project_id: "poc-ansible-bjj"
     user_email: "fathirandy@gmail.com"
     roles:
-      - "roles/viewer"
+      - "roles/browser"
       - "roles/editor"
       - "roles/storage.admin"
 
