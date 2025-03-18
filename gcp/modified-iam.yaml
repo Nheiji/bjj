@@ -3,6 +3,7 @@
   hosts: all
   gather_facts: no
   tasks:
+#iam: Owner, Editor, Browser, Viewer 
     - name: Add IAM Role to the User
       ansible.builtin.command:
         cmd: >
