@@ -35,7 +35,7 @@
         map(attribute='members') | flatten() | intersect(["user:{{ user_email }}"]) | length > 0
       register: remove_results
 
-    - name: Display results of role removal
-      debug:
-        msg: "Role {{ item.item }} removal output: {{ item.stdout }}"
-      with_items: "{{ remove_results.results }}"
+#    - name: Display results of role removal
+#      debug:
+#        msg: "Role {{ item.item }} removal output: {{ item.stdout }}"
+#     with_items: "{{ remove_results.results }}"
