@@ -33,10 +33,11 @@
         (iam_policy.stdout | from_json).bindings | selectattr('role', 'eq', item) | map(attribute='members') | flatten()
       register: remove_results
 
-    - name: Display results
+    - name: Display results of role removal
       debug:
         msg: "Role {{ item.item }} removal output: {{ item.stdout }}"
       with_items: "{{ remove_results.results }}"
+
 
     - name: Add IAM Role to the User
       delegate_to: 10.100.10.70
