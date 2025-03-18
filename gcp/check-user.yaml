@@ -1,0 +1,39 @@
+---
+- name: Remove IAM roles from a GCP user (only if role exists)
+  hosts: localhost
+  gather_facts: no
+  vars:
+    project_id: "poc-ansible-bjj"
+    user_email: "fathirandy@gmail.com"
+    roles:
+      - "roles/viewer"
+      - "roles/editor"
+      - "roles/browser"
+
+  tasks:
+    - name: Get current IAM policy for the project
+      ansible.builtin.command:
+        cmd: >
+          gcloud projects get-iam-policy {{ project_id }} --format=json
+      register: iam_policy
+
+    - name: Ensure IAM policy is retrieved
+      debug:
+        msg: "Retrieved IAM policy: {{ iam_policy.stdout }}"
+
+    - name: Remove role if it exists for the user
+      ansible.builtin.command:
+        cmd: >
+          gcloud projects remove-iam-policy-binding {{ project_id }}
+          --member="user:{{ user_email }}"
+          --role="{{ item }}"
+      with_items: "{{ roles }}"
+      when: >
+        "user:{{ user_email }}" in
+        (iam_policy.stdout | from_json).bindings | selectattr('role', 'eq', item) | map(attribute='members') | flatten()
+      register: remove_results
+
+    - name: Display results of role removal
+      debug:
+        msg: "Role {{ item.item }} removal output: {{ item.stdout }}"
+      with_items: "{{ remove_results.results }}"
