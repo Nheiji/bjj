@@ -13,7 +13,7 @@
       delegate_to: 10.100.10.70
       ansible.builtin.command:
         cmd: >
-          gcloud projects get-iam-policy {{ project_id }} --format=json
+          gcloud projects get-iam-policy poc-ansible-bjj --format=json
       register: iam_policy
 
     - name: Ensure IAM policy is retrieved
