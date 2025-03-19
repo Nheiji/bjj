@@ -3,8 +3,8 @@
   hosts: localhost
   gather_facts: no
   vars:
-    project_id: "poc-ansible-bjj"
-    user_email: "fathirandy@gmail.com"
+#    project_id: "poc-ansible-bjj"
+#    user_email: "fathirandy@gmail.com"
     roles:
       - "roles/viewer"
       - "roles/editor"
@@ -42,7 +42,7 @@
         cmd: >
           gcloud projects add-iam-policy-binding poc-ansible-bjj
           --member="user:{{ user_email }}"
-          --role="roles/viewer"
+          --role="roles/{{ role_name }}"
       register: add_role_result
     - debug:
         var: add_role_result.stdout
