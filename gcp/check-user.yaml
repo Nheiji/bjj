@@ -32,9 +32,16 @@
           --role="{{ item }}"
       with_items: "{{ roles }}"
       when: >
-        (iam_policy.stdout | from_json).bindings | selectattr('role', 'eq', item) |
-        map(attribute='members') | flatten() | intersect(["user:{{ user_email_roles }}"]) | length > 0
+        ("user:" + (user_email | quote)) in
+        (iam_policy.stdout | from_json).bindings | selectattr('role', 'eq', item) | map(attribute='members') | flatten()
       register: remove_results
+
+
+
+#      when: >
+#        (iam_policy.stdout | from_json).bindings | selectattr('role', 'eq', item) |
+#        map(attribute='members') | flatten() | intersect(["user:{{ user_email_roles }}"]) | length > 0
+#      register: remove_results
 
     - name: Add IAM Role to the User
       delegate_to: 10.100.10.70
