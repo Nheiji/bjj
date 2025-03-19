@@ -36,20 +36,13 @@
         map(attribute='members') | flatten() | intersect(["user:{{ user_email }}"]) | length > 0
       register: remove_results
 
-#    - name: Display results of role removal
-#      debug:
-#        msg: "Role {{ item.item }} removal output: {{ item.stdout }}"
-#     with_items: "{{ remove_results.results }}"
-
-
-
     - name: Add IAM Role to the User
       delegate_to: 10.100.10.70
       ansible.builtin.command:
         cmd: >
           gcloud projects add-iam-policy-binding poc-ansible-bjj
           --member="user:{{ user_email }}"
-          --role="roles/{{ role_name }}"
+          --role="roles/viewer"
       register: add_role_result
     - debug:
         var: add_role_result.stdout
