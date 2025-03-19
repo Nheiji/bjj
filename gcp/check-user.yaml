@@ -28,7 +28,7 @@
       ansible.builtin.command:
         cmd: >
           gcloud projects remove-iam-policy-binding poc-ansible-bjj
-          --member="user:{{ user_email }}"
+          --member="user:'{{ user_email }}'"
           --role="{{ item }}"
       with_items: "{{ roles }}"
       when: >
