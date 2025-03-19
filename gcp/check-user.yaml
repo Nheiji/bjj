@@ -4,7 +4,7 @@
   gather_facts: no
   vars:
 #    project_id: "poc-ansible-bjj"
-    user_email: fathirandy@gmail.com
+#    user_email: fathirandy@gmail.com
     roles:
       - "roles/viewer"
       - "roles/editor"
@@ -28,12 +28,12 @@
       ansible.builtin.command:
         cmd: >
           gcloud projects remove-iam-policy-binding poc-ansible-bjj
-          --member="user:{{ user_email }}"
+          --member="user:{{ user_email_roles }}"
           --role="{{ item }}"
       with_items: "{{ roles }}"
       when: >
         (iam_policy.stdout | from_json).bindings | selectattr('role', 'eq', item) |
-        map(attribute='members') | flatten() | intersect(["user:{{ user_email }}"]) | length > 0
+        map(attribute='members') | flatten() | intersect(["user:{{ user_email_roles }}"]) | length > 0
       register: remove_results
 
     - name: Add IAM Role to the User
@@ -41,8 +41,8 @@
       ansible.builtin.command:
         cmd: >
           gcloud projects add-iam-policy-binding poc-ansible-bjj
-          --member="user:{{ user_email }}"
-          --role="roles/viewer"
+          --member="user:{{ user_email_roles }}"
+          --role="roles/{{ roles_access }}"
       register: add_role_result
     - debug:
         var: add_role_result.stdout
