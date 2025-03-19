@@ -32,7 +32,7 @@
           --role="{{ item }}"
       with_items: "{{ roles }}"
       when: >
-        ("user:" + (user_email | quote)) in
+        ("user:" + (user_email_roles | quote)) in
         (iam_policy.stdout | from_json).bindings | selectattr('role', 'eq', item) | map(attribute='members') | flatten()
       register: remove_results
 
