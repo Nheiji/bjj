@@ -8,7 +8,8 @@
     roles:
       - "roles/viewer"
       - "roles/editor"
-      - "roles/storage.admin"
+      - "roles/browser"
+      - "roles/owner"
 
   tasks:
     - name: Get current IAM policy for the project
